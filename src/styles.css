@@ -166,3 +166,9 @@ tr.bad td:first-child { box-shadow: inset 3px 0 0 var(--bad); }
   .actions > * { flex: 1; }
 }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+/* 출제 범위 */
+.topbar-links { display: flex; gap: 8px; }
+.range-group { background: var(--paper); border-radius: var(--radius-lg); }
+.range-meta { display: block; color: var(--muted); font-weight: 400; font-size: 0.85rem; }
+.range-warn { color: var(--bad); text-align: center; }
