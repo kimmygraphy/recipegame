@@ -4,7 +4,7 @@ import { newRow, sizeLabel } from '../lib/order'
 import Packaging from './Packaging'
 
 export default function CupForm({ data, index, menu, cup, input, packOptions, onChange }) {
-    const ingredientsAt = useMemo(() => {
+  const ingredientsAt = useMemo(() => {
     const sorted = [...data.ingredients].sort((a, b) => a.name.localeCompare(b.name, 'ko'))
     const all = sorted.map((i) => i.name)
     const map = {}
@@ -39,7 +39,6 @@ export default function CupForm({ data, index, menu, cup, input, packOptions, on
                   const keep = ingredientsAt(location).includes(r.ingredient)
                   setRow(r.key, { location, ingredient: keep ? r.ingredient : '' })
                 }}
-
               >
                 <option value="">위치</option>
                 {locations.map((l) => (
