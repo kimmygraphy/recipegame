@@ -1,0 +1,56 @@
+{
+ "version": 1,
+ "_note": "포트폴리오 체험용 가상 메뉴입니다. 실제 매장 레시피가 아닙니다.",
+ "locations": ["냉장고 1층", "냉장고 2층", "냉동고", "선반", "커피머신", "기본 위치"],
+ "ingredients": [
+  {"name": "에스프레소", "location": "커피머신", "gradeLocation": true},
+  {"name": "우유", "location": "냉장고 1층", "gradeLocation": true},
+  {"name": "꿀 시럽", "location": "기본 위치", "gradeLocation": false},
+  {"name": "얼음", "location": "기본 위치", "gradeLocation": false},
+  {"name": "탄산수", "location": "기본 위치", "gradeLocation": false},
+  {"name": "유자청", "location": "냉장고 2층", "gradeLocation": true},
+  {"name": "흑당 시럽", "location": "선반", "gradeLocation": true},
+  {"name": "바닐라 아이스크림", "location": "냉동고", "gradeLocation": true},
+  {"name": "시나몬 파우더", "location": "선반", "gradeLocation": true},
+  {"name": "레몬 슬라이스", "location": "냉장고 2층", "gradeLocation": true}
+ ],
+ "menus": [
+  {"id": "X01", "name": "꿀 라떼", "code": "HL", "category": "HOT", "temp": "HOT", "isCoffee": true, "isBlended": false, "sizes": ["R", "L"], "note": "", "items": [
+   {"label": "꿀 시럽", "ingredient": "꿀 시럽", "unit": "pump", "amounts": {"R": 2, "L": 3}, "gradeSizes": ["R", "L"], "presenceOnly": false, "ref": ""},
+   {"label": "에스프레소", "ingredient": "에스프레소", "unit": "shot", "amounts": {"R": 2, "L": 3}, "gradeSizes": ["R", "L"], "presenceOnly": false, "ref": ""},
+   {"label": "우유", "ingredient": "우유", "unit": "g", "amounts": {"R": 240, "L": 320}, "gradeSizes": ["R", "L"], "presenceOnly": false, "ref": ""}]},
+  {"id": "X02", "name": "아이스 꿀 라떼", "code": "HL", "category": "ICE", "temp": "ICE", "isCoffee": true, "isBlended": false, "sizes": ["R", "L", "M"], "note": "", "items": [
+   {"label": "꿀 시럽", "ingredient": "꿀 시럽", "unit": "pump", "amounts": {"R": 2, "L": 3, "M": 4}, "gradeSizes": ["R", "L", "M"], "presenceOnly": false, "ref": ""},
+   {"label": "에스프레소", "ingredient": "에스프레소", "unit": "shot", "amounts": {"R": 2, "L": 3, "M": 4}, "gradeSizes": ["R", "L", "M"], "presenceOnly": false, "ref": ""},
+   {"label": "우유", "ingredient": "우유", "unit": "g", "amounts": {"R": 140, "L": 180, "M": 210}, "gradeSizes": ["R", "L", "M"], "presenceOnly": false, "ref": ""},
+   {"label": "얼음", "ingredient": "얼음", "unit": "g", "amounts": {"R": 170, "L": 210, "M": 240}, "gradeSizes": ["R", "L", "M"], "presenceOnly": true, "ref": ""}]},
+  {"id": "X03", "name": "유자 소다", "code": "YS", "category": "ADE", "temp": "ICE", "isCoffee": false, "isBlended": false, "sizes": ["L", "M"], "note": "", "items": [
+   {"label": "유자청", "ingredient": "유자청", "unit": "g", "amounts": {"L": 50, "M": 60}, "gradeSizes": ["L", "M"], "presenceOnly": false, "ref": ""},
+   {"label": "얼음", "ingredient": "얼음", "unit": "g", "amounts": {"L": 200, "M": 240}, "gradeSizes": ["L", "M"], "presenceOnly": true, "ref": ""},
+   {"label": "탄산수", "ingredient": "탄산수", "unit": "g", "amounts": {"L": 150, "M": 180}, "gradeSizes": ["L", "M"], "presenceOnly": false, "ref": ""},
+   {"label": "레몬 슬라이스", "ingredient": "레몬 슬라이스", "unit": "ea", "amounts": {"L": 1, "M": 1}, "gradeSizes": ["L", "M"], "presenceOnly": false, "ref": ""}]},
+  {"id": "X04", "name": "흑당 쉐이크", "code": "BS", "category": "SHAKE", "temp": "ICE", "isCoffee": false, "isBlended": true, "sizes": ["R"], "note": "블렌딩 음료라 얼음 양까지 채점", "items": [
+   {"label": "바닐라 아이스크림", "ingredient": "바닐라 아이스크림", "unit": "g", "amounts": {"R": 170}, "gradeSizes": ["R"], "presenceOnly": false, "ref": ""},
+   {"label": "우유", "ingredient": "우유", "unit": "g", "amounts": {"R": 120}, "gradeSizes": ["R"], "presenceOnly": false, "ref": ""},
+   {"label": "흑당 시럽", "ingredient": "흑당 시럽", "unit": "g", "amounts": {"R": 30}, "gradeSizes": ["R"], "presenceOnly": false, "ref": ""},
+   {"label": "얼음", "ingredient": "얼음", "unit": "g", "amounts": {"R": 100}, "gradeSizes": ["R"], "presenceOnly": false, "ref": ""}]},
+  {"id": "X05", "name": "시나몬 라떼", "code": "CL", "category": "HOT", "temp": "HOT", "isCoffee": true, "isBlended": false, "sizes": ["R", "L"], "note": "", "items": [
+   {"label": "에스프레소", "ingredient": "에스프레소", "unit": "shot", "amounts": {"R": 2, "L": 3}, "gradeSizes": ["R", "L"], "presenceOnly": false, "ref": ""},
+   {"label": "우유", "ingredient": "우유", "unit": "g", "amounts": {"R": 230, "L": 300}, "gradeSizes": ["R", "L"], "presenceOnly": false, "ref": ""},
+   {"label": "시나몬 파우더", "ingredient": "시나몬 파우더", "unit": "T/t", "amounts": {"R": {"T": 0, "t": 1}, "L": {"T": 1, "t": 0}}, "gradeSizes": ["R", "L"], "presenceOnly": false, "ref": "3g / 5g"}]},
+  {"id": "X06", "name": "에스프레소", "code": "E", "category": "ESPRESSO", "temp": "HOT", "isCoffee": true, "isBlended": false, "sizes": ["single", "double"], "note": "", "items": [
+   {"label": "에스프레소", "ingredient": "에스프레소", "unit": "shot", "amounts": {"single": 1, "double": 2}, "gradeSizes": ["single", "double"], "presenceOnly": false, "ref": ""}]}
+ ],
+ "orderTypes": [
+  {"id": "app_dinein", "label": "어플 - 매장", "group": "dinein"},
+  {"id": "app_takeout", "label": "어플 - 테이크아웃", "group": "takeout"},
+  {"id": "kiosk_dinein", "label": "키오스크 - 매장", "group": "dinein"},
+  {"id": "kiosk_takeout", "label": "키오스크 - 테이크아웃", "group": "takeout"},
+  {"id": "delivery", "label": "배달", "group": "delivery"}
+ ],
+ "packagingRules": [
+  {"scope": "order", "when": {"orderType": ["delivery"]}, "items": ["캐리어", "랩핑", "봉투"]},
+  {"scope": "order", "when": {"orderType": ["takeout"], "minCups": 2}, "items": ["캐리어"]},
+  {"scope": "cup", "when": {"orderType": ["takeout", "delivery"], "isCoffee": false}, "items": ["굵은 빨대"]}
+ ]
+}
