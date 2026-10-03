@@ -4,10 +4,14 @@ import { newRow, sizeLabel } from '../lib/order'
 import Packaging from './Packaging'
 
 export default function CupForm({ data, index, menu, cup, input, packOptions, onChange }) {
-  const ingredientNames = useMemo(
-    () => data.ingredients.map((i) => i.name).sort((a, b) => a.localeCompare(b, 'ko')),
-    [data]
-  )
+    const ingredientsAt = useMemo(() => {
+    const sorted = [...data.ingredients].sort((a, b) => a.name.localeCompare(b.name, 'ko'))
+    const all = sorted.map((i) => i.name)
+    const map = {}
+    for (const i of sorted) (map[i.location] ||= []).push(i.name)
+    return (loc) => (loc ? map[loc] || [] : all)
+  }, [data])
+  const locations = data.locations.filter((l) => ingredientsAt(l).length)
   const rows = input.rows
   const setRow = (key, patch) => onChange({ rows: rows.map((r) => (r.key === key ? { ...r, ...patch } : r)) })
   const removeRow = (key) => {
@@ -30,10 +34,15 @@ export default function CupForm({ data, index, menu, cup, input, packOptions, on
               <select
                 aria-label={`${i + 1}번째 재료 위치`}
                 value={r.location}
-                onChange={(e) => setRow(r.key, { location: e.target.value })}
+                onChange={(e) => {
+                  const location = e.target.value
+                  const keep = ingredientsAt(location).includes(r.ingredient)
+                  setRow(r.key, { location, ingredient: keep ? r.ingredient : '' })
+                }}
+
               >
                 <option value="">위치</option>
-                {data.locations.map((l) => (
+                {locations.map((l) => (
                   <option key={l} value={l}>
                     {l}
                   </option>
@@ -45,7 +54,7 @@ export default function CupForm({ data, index, menu, cup, input, packOptions, on
                 onChange={(e) => setRow(r.key, { ingredient: e.target.value })}
               >
                 <option value="">재료</option>
-                {ingredientNames.map((n) => (
+                {ingredientsAt(r.location).map((n) => (
                   <option key={n} value={n}>
                     {n}
                   </option>
