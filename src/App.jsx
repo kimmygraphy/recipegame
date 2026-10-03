@@ -1,16 +1,20 @@
 import { useEffect, useMemo, useState } from 'react'
 import { loadData, saveData, clearData } from './lib/data'
 import { makeOrder, newCupInput } from './lib/order'
+import { loadSettings, saveSettings } from './lib/settings'
 import { gradeOrder, packagingOptions } from './lib/grade'
 import DataScreen from './components/DataScreen'
 import Ticket from './components/Ticket'
 import CupForm from './components/CupForm'
 import Packaging from './components/Packaging'
 import ResultView from './components/ResultView'
+import RangeScreen from './components/RangeScreen'
 
 export default function App() {
   const [data, setData] = useState(() => loadData())
   const [showData, setShowData] = useState(false)
+  const [settings, setSettings] = useState(() => loadSettings())
+  const [showRange, setShowRange] = useState(false)
   const [order, setOrder] = useState(null)
   const [inputs, setInputs] = useState([])
   const [orderPack, setOrderPack] = useState([])
@@ -19,8 +23,8 @@ export default function App() {
 
   const menusById = useMemo(() => Object.fromEntries((data?.menus || []).map((m) => [m.id, m])), [data])
 
-  function startOrder(d = data) {
-    const o = makeOrder(d)
+  function startOrder(d = data, s = settings) {
+    const o = makeOrder(d, s)
     setOrder(o)
     setInputs(o.cups.map(() => newCupInput()))
     setOrderPack([])
@@ -57,6 +61,21 @@ export default function App() {
       />
     )
   }
+  if (showRange) {
+    return (
+      <RangeScreen
+        data={data}
+        settings={settings}
+        onBack={() => setShowRange(false)}
+        onSave={(s) => {
+          saveSettings(s)
+          setSettings(s)
+          setShowRange(false)
+          startOrder(data, s)
+        }}
+      />
+    )
+  }
   if (!order) return null
 
   const packed = order.type.group !== 'dinein'
@@ -67,9 +86,14 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <h1>레시피 연습</h1>
-        <button className="link" onClick={() => setShowData(true)}>
-          데이터
-        </button>
+        <div className="topbar-links">
+          <button className="link" onClick={() => setShowRange(true)}>
+            출제 범위
+          </button>
+          <button className="link" onClick={() => setShowData(true)}>
+            데이터
+          </button>
+        </div>
       </header>
 
       <Ticket
