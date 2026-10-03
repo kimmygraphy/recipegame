@@ -45,7 +45,6 @@ export function gradeCup(data, menu, size, rows) {
     pairs.forEach(({ e, row }) => {
       if (!row) return results.push({ item: e, row: null, issues: ['missing'] })
       const issues = []
-      if (info?.gradeLocation && row.location !== info.location) issues.push('location')
       if (!e.presenceOnly && !amountMatches(e.unit, e.amounts[size], row)) issues.push('amount')
       results.push({ item: e, row, issues })
     })
