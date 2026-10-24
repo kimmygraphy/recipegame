@@ -9,12 +9,14 @@ import CupForm from './components/CupForm'
 import Packaging from './components/Packaging'
 import ResultView from './components/ResultView'
 import RangeScreen from './components/RangeScreen'
+import RecipeBook from './components/RecipeBook'
 
 export default function App() {
   const [data, setData] = useState(() => loadData())
   const [showData, setShowData] = useState(false)
   const [settings, setSettings] = useState(() => loadSettings())
   const [showRange, setShowRange] = useState(false)
+  const [showBook, setShowBook] = useState(false)
   const [order, setOrder] = useState(null)
   const [inputs, setInputs] = useState([])
   const [orderPack, setOrderPack] = useState([])
@@ -61,6 +63,7 @@ export default function App() {
       />
     )
   }
+  if (showBook) return <RecipeBook data={data} onBack={() => setShowBook(false)} />
   if (showRange) {
     return (
       <RangeScreen
@@ -87,6 +90,9 @@ export default function App() {
       <header className="topbar">
         <h1>레시피 연습</h1>
         <div className="topbar-links">
+          <button className="link" onClick={() => setShowBook(true)}>
+            레시피북
+          </button>
           <button className="link" onClick={() => setShowRange(true)}>
             출제 범위
           </button>
