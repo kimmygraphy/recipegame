@@ -172,3 +172,29 @@ tr.bad td:first-child { box-shadow: inset 3px 0 0 var(--bad); }
 .range-group { background: var(--paper); border-radius: var(--radius-lg); }
 .range-meta { display: block; color: var(--muted); font-weight: 400; font-size: 0.85rem; }
 .range-warn { color: var(--bad); text-align: center; }
+
+/* 레시피북 */
+.book-controls { position: sticky; top: 0; z-index: 5; background: var(--counter); padding: 4px 0 8px; margin: 0 -14px; padding-left: 14px; padding-right: 14px; }
+.book-controls input[type='search'] { width: 100%; }
+.book-filters { flex-wrap: nowrap; overflow-x: auto; margin-top: 8px; padding-bottom: 2px; scrollbar-width: none; }
+.book-filters .chip { white-space: nowrap; flex: none; }
+.book-count { margin: 4px 0 8px; }
+.book-empty { text-align: center; color: var(--muted); padding: 24px 0; }
+.book-group { font-size: 0.9rem; color: var(--muted); margin: 18px 2px 8px; }
+.book-card { background: var(--paper); border-radius: var(--radius-lg); margin-bottom: 8px; overflow: hidden; }
+.book-head { display: flex; align-items: stretch; }
+.book-title { flex: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; text-align: left; background: none; border: 0; padding: 12px 4px 12px 14px; cursor: pointer; min-height: 52px; }
+.book-name { font-weight: 700; }
+.book-sizes { color: var(--muted); font-size: 0.85rem; }
+.book-hit { width: 100%; color: var(--signal); font-size: 0.8rem; }
+.temp { font-size: 0.7rem; font-weight: 700; padding: 1px 6px; border-radius: 999px; }
+.temp-hot { background: var(--bad-bg); color: var(--bad); }
+.temp-ice { background: #e8eff9; color: var(--signal); }
+.star { border: 0; background: none; font-size: 1.4rem; width: 52px; color: var(--muted); cursor: pointer; }
+.star.is-on { color: #d49b00; }
+.book-body { padding: 0 14px 14px; border-top: 1px solid var(--line); }
+.table-wrap { overflow-x: auto; }
+.book-body table { margin-top: 6px; }
+.book-body .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.small { font-size: 0.78rem; }
+tr.is-hit td { background: #eef3fb; }
