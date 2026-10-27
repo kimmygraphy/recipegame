@@ -3,6 +3,8 @@ import { formatAmount } from '../lib/data'
 import { sizeLabel } from '../lib/order'
 import { groupOf, groupsOf } from '../lib/settings'
 import { loadFavorites, saveFavorites } from '../lib/favorites'
+import { loadMemos, saveMemos, newMemoId } from '../lib/memos'
+import Memos from './Memos'
 
 const norm = (s) => (s || '').replace(/\s+/g, '').toLowerCase()
 
@@ -11,6 +13,14 @@ export default function RecipeBook({ data, onBack }) {
   const [filter, setFilter] = useState('all') // all | fav | 그룹 이름
   const [favs, setFavs] = useState(() => loadFavorites())
   const [open, setOpen] = useState(() => new Set())
+  const [memos, setMemos] = useState(() => loadMemos())
+
+  const updateMemos = (menuId, fn) => {
+    const next = { ...memos, [menuId]: fn(memos[menuId] || []) }
+    if (!next[menuId].length) delete next[menuId]
+    setMemos(next)
+    saveMemos(next)
+  }
 
   const groups = groupsOf(data)
   const locOf = useMemo(() => Object.fromEntries(data.ingredients.map((i) => [i.name, i.location])), [data])
@@ -34,7 +44,9 @@ export default function RecipeBook({ data, onBack }) {
       if (!q) return { m, hit: null }
       if (norm(m.name).includes(q) || norm(m.code).includes(q)) return { m, hit: null }
       const it = m.items.find((i) => norm(i.ingredient).includes(q))
-      return it ? { m, hit: it.ingredient } : null
+      if (it) return { m, hit: it.ingredient }
+      if ((memos[m.id] || []).some((x) => norm(x.text).includes(q))) return { m, hit: null, memoHit: true }
+      return null
     })
     .filter(Boolean)
 
@@ -56,7 +68,7 @@ export default function RecipeBook({ data, onBack }) {
       <div className="book-controls">
         <input
           type="search"
-          placeholder="메뉴나 재료 이름으로 검색"
+          placeholder="메뉴, 재료, 메모로 검색"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           aria-label="레시피 검색"
@@ -79,7 +91,7 @@ export default function RecipeBook({ data, onBack }) {
       {sections.map((s) => (
         <section key={s.title || 'list'}>
           {s.title && <h2 className="book-group">{s.title}</h2>}
-          {s.rows.map(({ m, hit }) => {
+          {s.rows.map(({ m, hit, memoHit }) => {
             const isOpen = open.has(m.id) || (q && list.length <= 3)
             const fav = favs.includes(m.id)
             return (
@@ -89,7 +101,9 @@ export default function RecipeBook({ data, onBack }) {
                     <span className={`temp temp-${m.temp === 'HOT' ? 'hot' : 'ice'}`}>{m.temp}</span>
                     <span className="book-name">{m.name}</span>
                     <span className="book-sizes">{m.sizes.map(sizeLabel).join(' · ')}</span>
+                    {(memos[m.id] || []).length > 0 && <span className="book-memo-count">메모 {memos[m.id].length}</span>}
                     {hit && <span className="book-hit">재료: {hit}</span>}
+                    {memoHit && <span className="book-hit">메모에서 찾음</span>}
                   </button>
                   <button
                     className={`star ${fav ? 'is-on' : ''}`}
@@ -138,6 +152,12 @@ export default function RecipeBook({ data, onBack }) {
                       </table>
                     </div>
                     {m.note && <p className="hint">{m.note}</p>}
+                    <Memos
+                      memos={memos[m.id] || []}
+                      onAdd={(text) => updateMemos(m.id, (l) => [...l, { id: newMemoId(), text, at: Date.now() }])}
+                      onEdit={(id, text) => updateMemos(m.id, (l) => l.map((x) => (x.id === id ? { ...x, text, at: Date.now() } : x)))}
+                      onDelete={(id) => updateMemos(m.id, (l) => l.filter((x) => x.id !== id))}
+                    />
                   </div>
                 )}
               </article>
