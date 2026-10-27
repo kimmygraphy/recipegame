@@ -116,6 +116,7 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
 .chip {
   display: inline-flex; align-items: center; min-height: 40px; padding: 6px 14px; cursor: pointer;
   border: 1.5px solid var(--counter-deep); border-radius: 999px; user-select: none;
+  position: relative; /* 숨긴 input이 칩 밖으로 나가 화면 폭을 넓히지 않게 */
 }
 .chip input { position: absolute; opacity: 0; width: 0; height: 0; min-height: 0; }
 .chip.is-on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
@@ -198,3 +199,18 @@ tr.bad td:first-child { box-shadow: inset 3px 0 0 var(--bad); }
 .book-body .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .small { font-size: 0.78rem; }
 tr.is-hit td { background: #eef3fb; }
+
+/* 레시피북 메모 */
+.memos { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); }
+.memos h3 { font-size: 0.85rem; color: var(--muted); margin: 0 0 6px; }
+.memo { background: #fffbea; border-radius: var(--radius-sm); padding: 8px 10px; margin-bottom: 6px; }
+.memo p { margin: 0; white-space: pre-wrap; word-break: break-word; }
+.memo-foot { display: flex; align-items: center; gap: 4px; margin-top: 4px; font-size: 0.78rem; color: var(--muted); }
+.memo-foot .link { padding: 4px 6px; font-size: 0.8rem; }
+.memo-foot .danger { color: var(--bad); }
+.memo-foot time { margin-right: auto; }
+.memos textarea { width: 100%; min-height: 64px; font: inherit; padding: 8px 10px; border: 1.5px solid var(--counter-deep); border-radius: var(--radius-sm); resize: vertical; background: var(--paper); }
+.memo-actions { display: flex; gap: 8px; margin-top: 6px; }
+.memo-actions button { min-height: 40px; flex: 1; }
+.book-memo-count { font-size: 0.75rem; color: #a07400; background: #fff4cc; border-radius: 999px; padding: 1px 7px; }
+.app.book { overflow-x: clip; }
